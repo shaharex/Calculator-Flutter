@@ -52,13 +52,21 @@ class _HomePageState extends State<HomePage> {
         num2 = double.parse(output);
 
         if (operand == "+") {
-          output = (num1 + num2).toString();
+          output = (num1 + num2).toString().length < 10
+              ? (num1 + num2).toString()
+              : (num1 + num2).toStringAsFixed(3);
         } else if (operand == "-") {
-          output = (num1 - num2).toString();
+          output = (num1 - num2).toString().length < 10
+              ? (num1 - num2).toString()
+              : (num1 - num2).toStringAsFixed(3);
         } else if (operand == "/") {
-          output = (num1 / num2).toString();
+          output = (num1 / num2).toString().length < 10
+              ? (num1 / num2).toString()
+              : (num1 / num2).toStringAsFixed(3);
         } else if (operand == "*") {
-          output = (num1 * num2).toString();
+          output = (num1 * num2).toString().length < 10
+              ? (num1 * num2).toString()
+              : (num1 * num2).toStringAsFixed(3);
         }
 
         num1 = 0.0;
@@ -109,7 +117,6 @@ class _HomePageState extends State<HomePage> {
                       '${output}',
                       style: const TextStyle(color: Colors.white, fontSize: 48),
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
                     ),
                   ],
                 ),
