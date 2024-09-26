@@ -1,16 +1,8 @@
-# flutter_calculator
+# Simple Flutter Calculator
 
-A new Flutter project.
+A simple calculator written on [Flutter](https://flutter.dev/) with dark and light modes, using [provider](https://pub.dev/packages/provider) to manage the state.Calculator can perform simple operations.
 
-## Getting Started
+## Screenshots
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Light Mode](https://github.com/user-attachments/assets/65fca7c4-3dc1-4fb9-a00d-68427013ca44)
+![Dark Mode](https://github.com/user-attachments/assets/fa0c53ea-8fd2-4ac6-95b0-bafb187b4961)
