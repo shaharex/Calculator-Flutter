@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Number extends StatelessWidget {
-  Number({super.key, required this.number});
+  const Number({super.key, required this.number});
 
   final int number;
 
@@ -12,10 +12,10 @@ class Number extends StatelessWidget {
       width: 70,
       height: 70,
       decoration: BoxDecoration(
-          color: const Color(0xff303136),
+          color: Theme.of(context).colorScheme.primary,
           borderRadius: BorderRadius.circular(10)),
       child: Text(
-        '${number}',
+        '$number',
         style: const TextStyle(color: Color(0xff29A8FF), fontSize: 32),
       ),
     );

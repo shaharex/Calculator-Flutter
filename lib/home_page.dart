@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_calculator/components/number.dart';
+import 'package:flutter_calculator/themes/theme_provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,6 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  // change the theme
+  bool _isLight = false;
+
+  // calculator stuff
   String output = '';
   double num1 = 0.0;
   double num2 = 0.0;
@@ -23,9 +29,17 @@ class _HomePageState extends State<HomePage> {
         num2 = 0.0;
         operand = "";
       });
-    } else if (btnText == 'D' && output.isNotEmpty) {
+    } else if (btnText == 'D') {
+      if (output.isNotEmpty) {
+        setState(() {
+          output = output.substring(0, output.length - 1);
+        });
+      } else {
+        output = '';
+      }
+    } else if (btnText == 'P') {
       setState(() {
-        output = output.substring(0, output.length - 1);
+        output = output + '3.14';
       });
     } else if (btnText == '/' ||
         btnText == '*' ||
@@ -41,7 +55,7 @@ class _HomePageState extends State<HomePage> {
     } else if (btnText == '.') {
       setState(() {
         if (output.contains('.')) {
-          print('Already has a dot');
+          debugPrint('Already has a dot');
           return;
         } else {
           output = output + btnText;
@@ -83,26 +97,36 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: Theme.of(context).colorScheme.background,
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const SizedBox(width: 20),
-              SizedBox(
-                  height: 36,
-                  width: 36,
-                  child: Image.asset(
-                    '/images/calculator.png',
-                    fit: BoxFit.contain,
-                  )),
-              const Text(
-                '  Calculator',
-                style: TextStyle(color: Colors.white, fontSize: 26),
-              ),
-            ],
+          leadingWidth: 200,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          title: const Padding(
+            padding: EdgeInsets.only(left: 30),
+            child: Text(
+              'Calculator',
+              style: TextStyle(fontSize: 26),
+            ),
           ),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 40),
+              child: GestureDetector(
+                  onTap: () {
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .toggleTheme();
+                    setState(() {
+                      _isLight = !_isLight;
+                    });
+                  },
+                  child: Icon(
+                    _isLight
+                        ? Icons.nightlight_round_outlined
+                        : Icons.wb_sunny_outlined,
+                    size: 30,
+                  )),
+            )
+          ],
         ),
         body: Center(
           child: Padding(
@@ -114,15 +138,15 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      '${output}',
-                      style: const TextStyle(color: Colors.white, fontSize: 48),
+                      output,
+                      style: const TextStyle(fontSize: 48),
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
                 Column(
                   children: [
-                    // clean delete
+                    // C pi D /
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -133,7 +157,7 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff616161),
+                                color: Theme.of(context).colorScheme.secondary,
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Text(
                               'C',
@@ -149,7 +173,7 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff616161),
+                                color: Theme.of(context).colorScheme.secondary,
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Text(
                               'π',
@@ -165,7 +189,7 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff616161),
+                                color: Theme.of(context).colorScheme.secondary,
                                 borderRadius: BorderRadius.circular(10)),
                             child: SvgPicture.asset('assets/images/Vector.svg'),
                           ),
@@ -177,7 +201,7 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff005DB2),
+                                color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Text(
                               '/',
@@ -213,9 +237,13 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff005DB2),
+                                color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: SvgPicture.asset('/images/_.svg'),
+                            child: const Text(
+                              '*',
+                              style: TextStyle(
+                                  color: Color(0xff339DFF), fontSize: 32),
+                            ),
                           ),
                         ),
                       ],
@@ -242,9 +270,13 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff005DB2),
+                                color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: SvgPicture.asset('/images/-.svg'),
+                            child: const Text(
+                              '-',
+                              style: TextStyle(
+                                  color: Color(0xff339DFF), fontSize: 32),
+                            ),
                           ),
                         ),
                       ],
@@ -271,7 +303,7 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff005DB2),
+                                color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Text(
                               '+',
@@ -300,7 +332,7 @@ class _HomePageState extends State<HomePage> {
                             width: 70,
                             height: 70,
                             decoration: BoxDecoration(
-                                color: const Color(0xff005DB2),
+                                color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
                             child: const Text(
                               '.',
