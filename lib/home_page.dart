@@ -239,11 +239,7 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: const Text(
-                              '*',
-                              style: TextStyle(
-                                  color: Color(0xff339DFF), fontSize: 32),
-                            ),
+                            child: SvgPicture.asset('/images/_.svg'),
                           ),
                         ),
                       ],
@@ -272,11 +268,7 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                                 color: Theme.of(context).colorScheme.tertiary,
                                 borderRadius: BorderRadius.circular(10)),
-                            child: const Text(
-                              '-',
-                              style: TextStyle(
-                                  color: Color(0xff339DFF), fontSize: 32),
-                            ),
+                            child: SvgPicture.asset('/images/-.svg'),
                           ),
                         ),
                       ],
